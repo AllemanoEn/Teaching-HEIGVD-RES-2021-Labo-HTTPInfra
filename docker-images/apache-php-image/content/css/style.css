@@ -1,0 +1,152 @@
+header{
+	background-image: linear-gradient(#04519b,#044687 70%, #033769);
+	color:#fff;
+	min-height: 100px;
+	padding: 20px;
+
+}
+.em{
+	font-weight: bold;
+	font-style: italic;
+	font-size: 40px;
+}
+.logo{
+	float:left;
+}
+.form_log{
+	float:right;
+}
+
+.container_main{
+	padding:0;
+	margin:0;
+}
+.container_wall{
+
+	
+}
+.wall{
+	background-image: linear-gradient(#04519b,#044687 60%, #033769);
+	color:#fff;
+}
+.wall .panel-title{
+	color:#fff;
+}
+.bubble{
+	position:relative;
+	width:580px;
+	padding:15px;
+	min-height:65px;
+	background:#fff;
+	border-radius:10px;
+	border:1px solid #ccc;
+}
+.bubble:after{
+	content: "";
+	position: absolute;
+	border-style: solid;
+	border-width: 15px 15px 15px 0;
+	border-color:transparent #fff;
+	display:block;
+	width:0;
+	z-index:1;
+	margin-top: -15px;
+	left: -15px;
+	top:30%;
+}
+.bubble:before{
+     content: "";
+	position: absolute;
+	border-style: solid;
+	border-color:transparent #ccc;
+	border-width: 15px 15px 15px 0;
+	display:block;
+	width:0;
+	z-index:0;
+	margin-top: -15px;
+	left: -16px;
+	top:30px;
+}
+.post-action{
+	margin:5px;
+}
+.post-action a{
+     padding:3px;
+}
+.comment-form .form-group{
+	width:90%;
+}
+.comment-form input[type='text']{
+	width: 100%;
+}
+.comment{
+	border:1px solid #ccc;
+	border-radius:5px;
+	padding:3px;
+	margin:5px 0;
+	overflow:auto;
+	width:100%;
+}
+.comment-avatar img{
+	width:50px;
+	margin-right:5px;
+}
+section{
+	
+	margin:0;
+}
+.friends li{
+   list-style: none;
+   padding:0 5px;
+   display:inline;
+   float:left;
+}
+.friends img{
+	width: 55px;
+}
+.groups img{
+    width:80px;
+    float:left;
+    margin-right: 15px;
+}
+.group-item{
+	padding-bottom: 10px;
+	margin-bottom:20px;
+	border-bottom: 1px solid #ccc;
+}
+.members .member-row{
+	border-bottom: 1px solid #ccc;
+	margin-bottom: 20px;
+	padding-bottom: 20px;
+}
+.photos{
+	padding:0;
+	margin:0;
+}
+.photos li{
+	list-style: none;
+	float:left;
+	margin:5px;
+	width:23%;
+	display:block;
+	
+}
+.photos img{
+	width: 100%;
+}
+@media(min-width: 991px){
+.members p{
+	padding-top: 40px;
+}
+}
+
+footer{
+    background:#f4f4f4;
+    height: 90px;
+    color:#04519b;
+    font-weight:bold;
+    text-align:center;
+    padding-top: 40px;
+    margin-top:30px;
+    border-top:7px solid #04519b;	
+}
