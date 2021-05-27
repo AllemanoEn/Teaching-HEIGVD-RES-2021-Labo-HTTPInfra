@@ -20,7 +20,7 @@ Nous y avons écrit les commandes suivante :
 | `FROM php:7.4-apache`      		| Indique la version php et l'image apache utilisée | 
 | `COPY content/ /var/www/html/`    | Copie les fichiers de configurations à l'intérieur du docker |
 
-Pour cette étape nous n'avons pas jugé util d'installer vim. Nous continuons d'éditer les divers fichiers sur notre host.
+Pour cette étape nous n'avons pas jugé utile d'installer vim. Nous continuons d'éditer les divers fichiers sur notre host.
 
 Pour vérifier le bon fonctionnement de notre serveur http nous avons copié [un site html](https://github.com/mlg-hub/bootstrap-theme) très simple créer avec [bootstrap](https://getbootstrap.com/) à l'intérieur de notre
 dossier content. La mise en page du site a été laissée telle quelle.
@@ -53,13 +53,42 @@ Nous y avons ensuite ajouter la dépendance "chance"
 
 
 
+## Step 3
+La troisième étape consiste à configurer un reverse proxy
 
+#### Step 3(a)/(b)
+Les étapes 3a et 3b nous servaient d'explications afin de comprendre l'implémentation mise en place dans l'étape suivante.
 
+Nous avons fait les manipulations nécessaires au bon fonctionnement du reverse proxy mais cela était fait en "dur" dans le container directement.
 
+Ceci à pour effet d'être éphémère, en effet au redémarrage de la machine ou simplement du container tout nos changement seront perdus. Nous remédions donc à cela dans l'étape 3c
 
+#### Step 3(c)
 
+Nous avons donc fait un reverse proxy afin de se connecter depuis notre machine à nos 2 containers des étapes 1 et 2 ( apache et express ).
 
+Nous avons ensuite écrit un [Dockerfile](../fb-step-3/docker-images/apache-reverse-proxy/Dockerfile) pour nous permettre de construire cette image Docker.
+Nous y avons écrit les commandes suivante :
 
+| Commande      					| But           |
+| :------------- 					|:-------------	|
+| `FROM php:5.6-apache`      		| Indique la version php et l'image apache utilisée | 
+| `COPY conf/ /etc/apache2`    		| Copie les fichiers de configurations à l'intérieur du docker |
+| `RUN a2enmod proxy proxy_http`    | Activation du module proxy et proxy_http |
+| `RUN a2ensite 000-* 001-*`    	| Activation du module de nos virtual host |
+
+Nous avons également créé un sous-dossier "conf" afin d'y mettre nos configurations du serveur. 
+
+Ce [dossier](../fb-step-3/docker-images/apache-reverse-proxy/conf) contient donc : 
+`000-default.conf`
+`001-reverse-proxy.conf`
+
+| Fichier      						| But           |
+| :------------- 					|:-------------	|
+| `000-default.conf`      			| Sert à rendre plus strictes les connexion (vide) | 
+| `001-reverse-proxy.conf`     		| Définit en dur les ips de nos containers avec la redirection de 										port correcte | 
+
+Une fois le tout configuré, afin de pouvoir se connecter avec le nom `demo.res.ch`, nous avons du éditer notre ficher `etc/hosts` en local pour rediriger toute les demandes de connection à ce nom de domaine vers notre VM docker.
 
 
 
