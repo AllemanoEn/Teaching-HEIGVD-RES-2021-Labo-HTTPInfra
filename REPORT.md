@@ -35,7 +35,7 @@ Ensuite, nous avons pu construire notre image depuis le dossier courant à l'aid
 ## Step 2
 La seconde étape consiste à configurer un serveur 
 
-#### Step 2(a)
+### Step 2(a)
 Nous avons utilisé une image nodejs déjà configurée, disponible sur dockerhub. Ceci ayant pour but d'exécuter un simple fichier javascript 
 dans un container docker et de pouvoir voir le résultat directement sur notre terminal.
 
