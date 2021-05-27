@@ -15,7 +15,7 @@ Nous avons ensuite écrit un [Dockerfile](../fb-step-1/docker-images/apache-php-
 Nous y avons écrit les commandes suivante :
 
 | Commande      					| But           |
-| ------------- 					|-------------	|
+| :------------- 					|:-------------	|
 | `FROM php:7.4-apache`      		| Indique la version php et l'image apache utilisée | 
 | `COPY content/ /var/www/html/`    | Copie les fichiers de configurations à l'intérieur du docker |
 
@@ -27,6 +27,6 @@ dossier content. La mise en page du site a été laissée telle quelle.
 Ensuite, nous avons pu construire notre image depuis le dossier courant à l'aide des commandes suivantes
 
 | Commande      							| But           |
-| ------------- 							|-------------	|
+| :------------- 							|:-------------	|
 | `docker build -t res/apache_php_el`		| Construction de l'image en spécifiant un tag </br> (el=enzoluca)| 
 | `docker run -p 8080:80 res/apache_php_el` | Démarrage d'un container en spécifiant une redirection de port |
