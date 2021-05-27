@@ -76,14 +76,14 @@ Les tests effectuées fonctionnent également avec l'outil [Postman](https://www
 ## Step 3
 La troisième étape consiste à configurer un reverse proxy
 
-#### Step 3(a)/(b)
+### Step 3(a)/(b)
 Les étapes 3a et 3b nous servaient d'explications afin de comprendre l'implémentation mise en place dans l'étape suivante.
 
 Nous avons fait les manipulations nécessaires au bon fonctionnement du reverse proxy mais cela était fait en "dur" dans le container directement.
 
 Ceci à pour effet d'être éphémère, en effet au redémarrage de la machine ou simplement du container tout nos changement seront perdus. Nous remédions donc à cela dans l'étape 3c
 
-#### Step 3(c)
+### Step 3(c)
 
 Nous avons donc fait un reverse proxy afin de se connecter depuis notre machine à nos 2 containers des étapes 1 et 2 ( apache et express ).
 
