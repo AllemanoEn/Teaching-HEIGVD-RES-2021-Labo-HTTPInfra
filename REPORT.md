@@ -35,6 +35,10 @@ Ensuite, nous avons pu construire notre image depuis le dossier courant à l'aid
 ## Step 2
 La seconde étape consiste à configurer un serveur 
 
+## Step 2
+La seconde étape consiste à configurer un serveur http qui soit capable de nous renvoyer une réponses au format json.
+La réponse formatée en json sera construite avec les modules node.js et express.js.
+
 ### Step 2(a)
 Nous avons utilisé une image nodejs déjà configurée, disponible sur dockerhub. Ceci ayant pour but d'exécuter un simple fichier javascript 
 dans un container docker et de pouvoir voir le résultat directement sur notre terminal.
@@ -48,10 +52,29 @@ Nous y avons écrit les commandes suivante :
 | `COPY src /opt/app`    				| Copie les fichiers de configurations à l'intérieur du docker |
 | `CMD ["node", "/opt/app/index.js"]`   | Exécute la commande `node /opt/app/index.js` au démarrage du container |
 
-Pour tester notre image, nous avons utilisé l'utilitaire `npm init` pour créer une application de test. 
-Nous y avons ensuite ajouter la dépendance "chance"
+Pour tester notre image, nous avons utilisé l'utilitaire `npm init` afin de créer une application de test. 
+Nous y avons ensuite ajouter la dépendance "chance" que nous utilisons pour générer entre 1 étudiant au format json (prénom + nom).
+Ceci à pour unique but de tester un petit script js. Ce script s'appel [`index.js`](../fb-step-2/docker-images/express-image/src/index.js) et se trouve dans le dossier src.
 
+On peu à présent construire notre image et démarrer un container pour voir apparaître sur notre terminal un étudiants au foramt json.
 
+Le container démarré juste au dessus s'exécute et se termine instantanément car il a treminé don exécution.
+
+### Step 2(b)
+Comme décrit plus haut, pour configurer le côté http nous utilisons le framework express.js.
+
+Le fichier [`index.js`](../fb-step-2/docker-images/express-image/src/index.js) a donc été modifié de tel sorte à répondre aux requêtes http en renvoyant entre 0 et 10 étudiants formatés au format json.
+
+Dans l'exemple fournis, la commande `docker-machine ssh` est utilisée pour tester le serveur directement depuis l'environnement Docker.
+Etant sous Windows, c'est fonction n'est pas disponible par défaut. Nous avons donc directement testé notre image docker en démarrant un container
+avec une redirection de port. De se fait, on peut directement voir que depuis notre navigateur on peut récupérer la liste d'étudiants.
+
+| Commande      							| But           |
+| :------------- 							|:-------------	|
+| `docker build -t res/express_student_el .`		| Construction de l'image en spécifiant un tag </br> (el=enzoluca)| 
+| `docker run -p 9090:80 res/express_student_el` | Démarrage d'un container en spécifiant une redirection de port |
+
+Les tests effectuées fonctionnent également avec l'outil [Postman](https://www.postman.com/).
 
 ## Step 3
 La troisième étape consiste à configurer un reverse proxy
