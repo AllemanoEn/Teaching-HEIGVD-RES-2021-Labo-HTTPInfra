@@ -2,7 +2,7 @@
 La documentation suivante décrit de manière succinct les étapes entreprises pour la réalisation du laboratoire.
 
 ##### Auteurs : Luca Zacheo et Enzo Allemano
-##### Environnement de développement : Luca Zacheo et Enzo Allemano
+##### Environnement de développement : Windows 10
 
 ---
 
