@@ -33,9 +33,6 @@ Ensuite, nous avons pu construire notre image depuis le dossier courant à l'aid
 | `docker run -p 8080:80 res/apache_php_el` | Démarrage d'un container en spécifiant une redirection de port |
 
 ## Step 2
-La seconde étape consiste à configurer un serveur 
-
-## Step 2
 La seconde étape consiste à configurer un serveur http qui soit capable de nous renvoyer une réponses au format json.
 La réponse formatée en json sera construite avec les modules node.js et express.js.
 
