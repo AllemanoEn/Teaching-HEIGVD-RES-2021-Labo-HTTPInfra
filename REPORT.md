@@ -110,6 +110,19 @@ Ce [dossier](../fb-step-3/docker-images/apache-reverse-proxy/conf) contient donc
 
 Une fois le tout configuré, afin de pouvoir se connecter avec le nom `demo.res.ch`, nous avons du éditer notre ficher `etc/hosts` en local pour rediriger toute les demandes de connection à ce nom de domaine vers notre VM docker.
 
+## Step 4
+
+Cette étape consiste à mettre à jour dynamiquement sur notre serveur apache les données retournées par notre serveur express.
+
+Nous avons premièrement  modifié chacuns de nos Dockerfiles afin d'y ajouter les commandes `apt-get update` ainsi que `apt-get install vim` pour que nos containers aient vim et soient à jour.
+
+Ensuite, afin d'implémenter visuellement la réponse de notre serveur express ( les noms aléatoires ) nous avons créé un nouveau fichier javascript [students.js](../fb-step-4/docker-images/apache-php-image/content/js/students.js) sur notre serveur apache, qui implémente une fonction créant un tableau avec les noms retournés afin de les afficher.
+
+Afin que notre serveur interprète correctement la nouvelle fonction, nous avons également dû ajouter l'inclusion de students.js dans [index.html](../fb-step-4/docker-images/apache-php-image/content/index.html)
+`<script src="js/students.js"></script>`
+
+## Step 5
+
 
 
 
