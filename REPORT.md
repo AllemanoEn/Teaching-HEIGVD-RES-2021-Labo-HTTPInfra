@@ -123,6 +123,8 @@ Afin que notre serveur interprète correctement la nouvelle fonction, nous avons
 
 ## Step 5
 
+Cette étape consiste à rendre l'exécution de nos containers liés à notre reverse proxy plus dynamique.
+
 
 
 
