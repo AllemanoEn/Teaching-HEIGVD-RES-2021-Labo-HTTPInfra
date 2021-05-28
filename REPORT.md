@@ -122,6 +122,11 @@ Afin que notre serveur interprète correctement la nouvelle fonction, nous avons
 `<script src="js/students.js"></script>`
 
 ## Step 5
+- Parler du copier un peu spécial qu'on à du faire pour faire fonction la configuration d'apache
+
+## Additional step : Load balancing
+- Retranscrire la conversation qu'on a eu avec Yohann (RoundRobin et load balancing)
+
 
 Cette étape consiste à rendre l'exécution de nos containers liés à notre reverse proxy plus dynamique.
 
