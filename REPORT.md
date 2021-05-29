@@ -122,13 +122,56 @@ Afin que notre serveur interprète correctement la nouvelle fonction, nous avons
 `<script src="js/students.js"></script>`
 
 ## Step 5
-- Parler du copier un peu spécial qu'on à du faire pour faire fonction la configuration d'apache
+Cette étape consiste à mettre en place une connexion dynamique entre notre reverse proxy et notre serveur apache ainsi que express.
 
-## Additional step : Load balancing
-- Retranscrire la conversation qu'on a eu avec Yohann (RoundRobin et load balancing)
+Nous avons dans un premier temps écrit un script [apache2-foreground](../fb-step-5/docker-images/apache-reverse-proxy/apache2-foreground) qui reprend les commandes qui sont executées de base par le serveur apache et nous y avons ajouté des *echos* avec des variables afin de voir si tout marchait correctement.
 
 
-Cette étape consiste à rendre l'exécution de nos containers liés à notre reverse proxy plus dynamique.
+Pour que ce script s'éxecute correctement au lancement du serveur il faut le copier dessus, nous avons donc ajouté cette ligne dans notre [Dockerfile](../fb-step-5/docker-images/apache-reverse-proxy/Dockerfile) :
+
+`COPY apache2-foreground /usr/local/bin/`
+
+A cette étape nous avons rencontrés quelques soucis car visiblement le script de base `apache2-foreground` ne faisait plus exactement la même chose que celui du prof. au moment de l'enregistrement de la vidéo.
+
+Nous avons donc dû ajouté ces lignes dans notre [apache2-foreground](../fb-step-5/docker-images/apache-reverse-proxy/apache2-foreground) :
+
+*# Not the same version as the webcast<br>: "${APACHE_CONFDIR:=/etc/apache2}"<br>: "${APACHE_ENVVARS:=$APACHE_CONFDIR/envvars}"<br>if test -f "$APACHE_ENVVARS"; then<br>. "$APACHE_ENVVARS"<br>fi<br>#Apache gets grumpy about PID files pre-existing<br>: "${APACHE_RUN_DIR:=/var/run/apache2}"<br>: "${APACHE_PID_FILE:=$APACHE_RUN_DIR/apache2.pid}"<br>rm -f "$APACHE_PID_FILE"<br>*
+
+Nous avons ensuite avons ajouté le fichier [config-template.php](../fb-step-5/docker-images/apache-reverse-proxy/templates) sur notre server reverse proxy.
+
+Ce fichier, nous permet de définir des variables pour spécifier à quelles addresses vont se trouvés nos containers express et apache. Ces variables vont être des variables globales ce qui nous permet de ne pas avoir à écrire en dur l'ip de nos containers dans le fichier comme au paravant.
+
+Il faudra toute fois spécifier les ips que nous souhaitons au moment du run de notre reverse proxy grâce au `-e` permettant de définir une variable d'environnement à notre container.
+
+Pour que cela fonctionne au lancement de notre container nous avons donc dû éditer le [Dockerfile](../fb-step-5/docker-images/apache-reverse-proxy/Dockerfile) associé afin de copier le nouveau fichier php décrit ci-dessus dans notre serveur.
+
+Pour ce faire cette ligne à été ajoutée (le fichier php étant contenu dans le dossier templates):
+`COPY templates /var/apache2/templates`
+
+Ensuite, afin que notre fichier [config-template.php](../fb-step-5/docker-images/apache-reverse-proxy/templates)
+s'éxecute au lancement, nous avons éditer  [apache2-foreground](../fb-step-5/docker-images/apache-reverse-proxy/apache2-foreground)
+en y ajoutant : 
+
+`php /var/apache2/templates/config-template.php > /etc/apache2/sites-available/001-reverse-proxy.conf`
+
+Cette ligne de commande sert donc à exécuter notre script PHP et à écrire le résultat de cette exécution dans notre fichier de configuration du serveur reverse proxy (001-reverse-proxy.conf).
+
+## Additional step : Load balancing: multiple server nodes 
+Pour cette étape, nous avons constaté que *nginx* permettait de gérer le Load balancing plutôt facilement.
+
+Pour ce faire nous avons donc ajouté un [Dockerfile](../fb-load-balancing/docker-images/load-balancing/Dockerfile)
+nous permettant d'importer une image *nginx*.
+
+Nous avons ensuite écrit notre ficher de configuration [nginx.conf](../fb-load-balancing/docker-images/load-balancing/nginx.conf)
+ souhaité pour notre nouveau serveur.
+ Dans ce fichier nous spécifions donc les 2 ips que chacuns des nos serveurs (apache et express) pourront avoir afin de balance les conversation entre ceux-ci.
+ 
+ Il ne nous restait donc plus qu'à copier ce fichier de configuration dans notre container, pour ce faire nous avons ajouté cette ligne dans notre [Dockerfile](../fb-load-balancing/docker-images/load-balancing/Dockerfile) :
+ 
+ `COPY nginx.conf /etc/nginx/nginx.conf`
+
+## Additional step : Load balancing: round-robin vs sticky sessions
+
 
 
 
