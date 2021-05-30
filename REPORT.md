@@ -2,7 +2,7 @@
 La documentation suivante décrit de manière succinct les étapes entreprises pour la réalisation du laboratoire.
 
 ##### Auteurs : Luca Zacheo et Enzo Allemano
-##### Environnement de dévelopement : Luca Zacheo et Enzo Allemano
+##### Environnement de dévelopement : Windows 10
 
 ---
 
@@ -171,16 +171,5 @@ Nous avons ensuite écrit notre ficher de configuration [nginx.conf](../fb-load-
  `COPY nginx.conf /etc/nginx/nginx.conf`
 
 ## Additional step : Load balancing: round-robin vs sticky sessions
-
-
-
-
-
-
-
-
-
-
-
-
-
+Comme mentionné dans la documentation Nginx, afin d'implémenter des sticky sessions, il nous suffit d'ajouter les valeurs de hash nécessaire.
+L'avantage d'utiliser Nginx est que le round-robin est géré automatiquement.
